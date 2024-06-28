@@ -1,0 +1,127 @@
+
+.sigin_main{
+    width: 100%;
+    display: flex;
+    margin-top: 7%;
+}  
+
+.sigin_con{
+    width: 50%;
+    height: auto;
+    /* background-color: bisque; */
+}
+
+.sigin_content{
+    /* background-color: antiquewhite; */
+    margin: auto;
+    /* align-items: center;
+    justify-content: center; */
+    width:350px
+}
+
+.signintitle h4{
+    letter-spacing: 1.8px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.singup_way p{
+    margin-top: 3%;
+}
+
+.singup_way p a{
+    text-decoration: none;
+}
+
+.email_label{
+    margin-top: 30px;
+    margin-bottom: 3%;
+}
+
+.email_input{
+    border-radius: 40px;
+    width: 343px;
+    height: 37px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+}
+
+.password_label{
+    margin-bottom: 3%;
+}
+.password_input{
+    border-radius: 40px;
+    width: 343px;
+    height: 37px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+}
+
+.forgetpass_con{
+    display: flex;
+    justify-content: space-between;
+    height: 35px;
+    align-items: center;
+    margin-bottom: 7%;
+}
+
+.radio{
+    display: flex;
+    align-items: center;
+}
+.radio input{
+    width: 15%;
+    height: 25px;
+}
+
+.radio label{
+    width: 100px;
+}
+
+.forgetpass{
+    margin-left: auto;
+}
+
+.forgetpass p a{
+    text-decoration: none;
+}
+
+.signin_button button{
+    border-radius: 40px;
+    width: 350px;
+    height: 40px;
+    background-color: #3177FF;
+    color: white;
+    border: none;
+}
+
+.footer_con{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.webimg_con{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.webimg img{
+    aspect-ratio: 3 / 2;
+    width: 60px;
+}
+.signin_img{
+    width: 50%;
+    text-align: center;
+    /* background-color: black; */
+}
+
+/* .signin_img{
+    text-align: center;
+} */
+
+.signin_img div img{
+    width: 500px;
+    height: 500px;
+}
+

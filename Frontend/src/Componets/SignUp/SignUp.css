@@ -1,0 +1,145 @@
+.signup_main{
+    width: 100%;
+    display: flex;
+    margin-top: 16px;
+}  
+
+.signup_con{
+    width: 50%;
+    height: auto;
+    /* background-color: bisque; */
+}
+
+.signup_content{
+    padding: 10px;
+    /* background-color: antiquewhite; */
+    margin: auto;
+    width:350px
+}
+
+.signuptitle h4{
+    margin-top: 10px;
+}
+.webimgsignup_con{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.webimgsignup_con div img{
+    aspect-ratio: 3 / 2;
+    width: 60px;
+}
+
+
+
+/* above css are copy form other website */
+
+/* .divider-wrapper {
+    display: flex;
+    flex-direction: row;
+    text-transform: uppercase;
+    border: none;
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0px 0 0;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    vertical-align: baseline;
+}
+
+.divider-wrapper:before, .divider-wrapper:after {
+    content: "";
+    border-bottom: 1px solid #c2c8d0;
+    flex: 1 0 auto;
+    height: 0.5em;
+    margin: 0;
+} */
+
+  /* end */
+
+.signup_form_con{
+    margin-top: 30px;
+    
+}
+.signup_D{
+    /* margin-top: 10px; */
+    margin-bottom: 15px;
+}
+
+.signup_D_last{
+    margin-bottom: 5px;
+}
+
+.singup_label{
+    margin-bottom: 3%;
+}
+
+.singup_input{
+    border-radius: 40px;
+    width: 343px;
+    height: 37px;
+    padding-left: 15px;
+}
+
+.condition_con{
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.condition_con input{
+    width: 15px;
+    height: 20px;
+}
+
+.condition_con p{
+    margin: 0;
+}
+
+.condition_con p a{
+    text-decoration: none;
+}
+
+.signup_button{
+    margin-bottom: 15px;
+}
+.signup_button button{
+    border-radius: 40px;
+    width: 350px;
+    height: 40px;
+    background-color: #3177FF;
+    color: white;
+    border: none;
+}
+
+.signup_footer{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.signup_footer p{
+    margin: 0;
+}
+
+.signup_footer a{
+    text-decoration: none;
+}
+
+.signup_img{
+    width: 50%;
+    text-align: center;
+    margin-top: 140px;
+    margin-bottom: 32px;
+}
+
+.signup_img div{
+    text-align: center;
+}
+
+.signup_img div img{
+    width: 400px;
+    height: 350px;
+    aspect-ratio: 3 / 2.7;
+}
