@@ -6,6 +6,7 @@ import FaceBookImg from '../../assets/FaceBook_Icon.png'
 import AppleImg from '../../assets/Apple_Icon.png'
 import SignIn_Img from '../../assets/SignIn_Img.png'
 import { useNavigate } from "react-router-dom";
+import SecretPage from "../SecretPage/SecretPage";
 
 export default function SignIn() {
 
@@ -39,11 +40,6 @@ export default function SignIn() {
             // go to the SecretPage using navigate method in react router dom 
             navigate("/SecretPage")
 
-            // token read using getitem method
-            const localStoragetoken = localStorage.getItem('token');
-            console.log(localStoragetoken);
-
-            
         } catch (err) {
             console.log(err);
             return alert(err.response.data.message);

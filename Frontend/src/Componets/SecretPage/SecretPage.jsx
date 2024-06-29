@@ -7,9 +7,14 @@ export default function SecretPage() {
 
 
     useEffect(()=>{
+
+        // token read using getitem method
+        const localStoragetoken = localStorage.getItem('token');
+        console.log(localStoragetoken);
+
         async function TokenApi() {
             try{
-                const response = await axios.get(URL+`/tokenverify?token:${localStoragetoken}`);
+                const response = await axios.get(URL+`tokenverify?token=${localStoragetoken}`);
                 console.log(response.data);
             }catch(err){
                 console.log(err);
