@@ -1,9 +1,11 @@
 
 import SignIn  from './Componets/SignIn/SignIn';
 import SignUp from './Componets/SignUp/SignUp'
+import SecretPage from './Componets/SecretPage/SecretPage'
+import Home from './Componets/Home/Home';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './App.css'
-import Home from './Componets/Home/Home';
+
 
 function App() {
 
@@ -14,11 +16,15 @@ function App() {
     },
     {
       path: '/SignIn',
-      element: <><SignIn /></>,
+      element: <><SignIn/></>,
     },
     {
       path: '/SignUp',
       element: <><SignUp /></>,
+    },
+    {
+      path:'/SecretPage',
+      element: <><SecretPage /></>
     }
   ])
 

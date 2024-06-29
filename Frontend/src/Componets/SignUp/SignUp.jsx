@@ -24,30 +24,24 @@ export default function SignUp() {
         })
     }
 
-    function submitSignUpForm(Event) {
+    async function submitSignUpForm(Event) {
 
         Event.preventDefault();
         console.log(SignUpForm);
 
         if(SignUpForm.Password==SignUpForm.ConformPassword){
-            async function SignUpData() {
+
                 try {
                     console.log("HEllo");
                     const response = await axios.post(URL + `SignUp?Email=${SignUpForm.Email}&Password=${SignUpForm.Password}`);
                     console.log(response.data);
-                    return response.data;
+                    alert(response.data.message)
+                    // return response.data;
                 } catch (err) {
-                    console.log("BYE");
+                    alert(err.response.data.message)
                     console.log(err);
                 }
-            }
     
-            SignUpData().then((data) => {
-                console.log(data);
-            }).catch((err) => {
-                console.log("SignUP API Error");
-                console.log(err);
-            })
         }else{
             alert("Please Enter the Valid Password")
         }

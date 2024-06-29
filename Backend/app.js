@@ -31,6 +31,9 @@ app.get("/", (req, res) => {
     res.json("HEllo")
 })
 
+app.get("/tokenverify",(req,res)=>{
+    console.log("HEllo");
+})
 app.post("/SignUp", (req, res) => {
     console.log(req.query.Email);
     console.log(req.query.Password);
@@ -47,9 +50,16 @@ app.post("/SignUp", (req, res) => {
             })
             result.save();
             console.log(response);
-            res.json("SignUp Scussefully")
+            res.status(200).json({
+                message:"SignUp successfully",
+                data:response
+            })
         }).catch((err) => {
             console.log(err);
+            res.status(404).json({
+                message:"SignUp Error",
+                data:err,
+            })
         })
     });
 })
@@ -66,24 +76,27 @@ app.post("/SignIn", (req, res) => {
         console.log(token);
 
         if (!response) {
-            res.status(404).json("Email Error")
+            res.status(404).json({
+                message:"Email Error",
+                data:response,
+            })
         } else {
             bcrypt.compare(req.query.Password, response.Password, function (err, result) {
                 // console.log(result);
 
                 if (response.Email == req.query.Email && result == true) {
-                    res.json({
+                    res.status(200).json({
                         message:"SignIn Scussefully",
                         Token:token,
                         Email:req.query.Email,
                     })
-                    console.log("1");
                 }
+
                 else if (result == false) {
                     // res.json("This User Are Not Exiest")
                     res.status(404).json({
                         message:"Password Error",
-                        Token:token,
+                        data:response,
                     })
                 }
             })

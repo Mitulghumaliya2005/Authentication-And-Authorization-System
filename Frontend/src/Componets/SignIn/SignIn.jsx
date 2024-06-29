@@ -5,10 +5,11 @@ import GoogleImg from '../../assets/Google_Icon.png'
 import FaceBookImg from '../../assets/FaceBook_Icon.png'
 import AppleImg from '../../assets/Apple_Icon.png'
 import SignIn_Img from '../../assets/SignIn_Img.png'
-
-// import GoogleImg from '../../assets/Google_Icon.png'
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
+
+    const navigate = useNavigate();
 
     const URL = "http://localhost:4000/";
     const [SignInForm, setSignInForm] = useState({
@@ -24,29 +25,35 @@ export default function SignIn() {
         })
     }
 
-    function submitSignInForm(Event) {
-        async function SignInData() {
-            try {
-                const response = await axios.post(URL + `SignIn?Email=${SignInForm.Email}&Password=${SignInForm.Password}`)
-                console.log(response.data);
-                console.log(response.data.Token);
-                return response.data;
-            } catch (err) {
-                console.log(err);
-            }
-        }
+    async function submitSignInForm(Event) {
+        Event.preventDefault();
 
-        SignInData().then((data) => {
-            console.log(data);
-        }).catch((err) => {
+        try {
+            const response = await axios.post(URL + `SignIn?Email=${SignInForm.Email}&Password=${SignInForm.Password}`)
+            console.log(response.data);
+            alert(response.data.message)
+
+            // token store in local storage
+            localStorage.setItem('token', response.data.Token)
+
+            // go to the SecretPage using navigate method in react router dom 
+            navigate("/SecretPage")
+
+            // token read using getitem method
+            const localStoragetoken = localStorage.getItem('token');
+            console.log(localStoragetoken);
+
+            
+        } catch (err) {
             console.log(err);
-        })
+            return alert(err.response.data.message);
+        }
 
         setSignInForm({
             Email: "",
             Password: "",
         })
-        Event.preventDefault();
+
     }
 
     return (
@@ -57,13 +64,13 @@ export default function SignIn() {
                         <h4>WELCOME BACK!</h4>
                     </div>
                     <div className='singup_way'>
-                        <p>Don't have a account, <a href='#'>Sign up</a></p>
+                        <p>Don't have a account, <a href='/SignUp'>Sign up</a></p>
                     </div>
                     <form>
                         <div className='email'>
 
                             <div className='email_label'>
-                                <label htmlFor='username'>Username</label>
+                                <label htmlFor='Email'>Email</label>
                             </div>
 
                             <div>
@@ -74,7 +81,7 @@ export default function SignIn() {
                                     value={SignInForm.Email}
                                     onChange={handleSignInForm}
                                     id='username'
-                                    type='text'
+                                    type='email'
                                 />
                             </div>
                         </div>
@@ -137,20 +144,3 @@ export default function SignIn() {
         </div>
     )
 }
-{/* <form>
-                <input
-                    placeholder="Enter Your Email"
-                    name="Email"
-                    value={SignInForm.Email}
-                    onChange={handleSignInForm}
-                /><br /><br />
-
-                <input
-                    placeholder="Enter Your Password"
-                    name="Password"
-                    value={SignInForm.Password}
-                    onChange={handleSignInForm}
-                /><br /><br />
-
-                <button onClick={submitSignInForm}>SignIn</button>
-            </form> */}
