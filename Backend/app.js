@@ -32,7 +32,6 @@ app.get("/", (req, res) => {
 })
 
 app.get("/tokenverify", (req, res) => {
-    console.log("HEllo");
     console.log(req.query.token);
     const verified = jwt.verify(req.query.token, "PrivateKey");
     console.log(verified);
@@ -42,6 +41,8 @@ app.get("/tokenverify", (req, res) => {
         console.log("Error");
     })
 })
+
+
 app.post("/SignUp", (req, res) => {
     console.log(req.query.Email);
     console.log(req.query.Password);
