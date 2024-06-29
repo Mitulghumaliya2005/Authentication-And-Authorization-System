@@ -5,10 +5,12 @@ import GoogleImg from '../../assets/Google_Icon.png'
 import FaceBookImg from '../../assets/FaceBook_Icon.png'
 import AppleImg from '../../assets/Apple_Icon.png'
 import SignUpImg from '../../assets/SignUp_Img.png';
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
 
     const URL = 'http://localhost:4000/';
+    const Navigate = useNavigate();
 
     const [SignUpForm, setSignUpForm] = useState({
         Email: "",
@@ -36,6 +38,10 @@ export default function SignUp() {
                     const response = await axios.post(URL + `SignUp?Email=${SignUpForm.Email}&Password=${SignUpForm.Password}`);
                     console.log(response.data);
                     alert(response.data.message)
+                    localStorage.setItem('token',response.data.token);
+                    
+                    Navigate("/");
+
                     // return response.data;
                 } catch (err) {
                     alert(err.response.data.message)
@@ -178,24 +184,3 @@ export default function SignUp() {
         </div>
     )
 }
-
-// <div>
-//     <h1>SignUp</h1>
-//     <form>
-//         <input
-//             placeholder="Enter Your Email"
-//             name="Email"
-//             value={SignUpForm.Email}
-//             onChange={handleSignUpForm}
-//         /><br /><br />
-
-//         <input
-//             placeholder="Enter Your Password"
-//             name="Password"
-//             value={SignUpForm.Password}
-//             onChange={handleSignUpForm}
-//         /><br /><br />
-
-//         <button onClick={submitSignUpForm}>SignUp</button>
-//     </form>
-// </div>

@@ -6,13 +6,16 @@ import FaceBookImg from '../../assets/FaceBook_Icon.png'
 import AppleImg from '../../assets/Apple_Icon.png'
 import SignIn_Img from '../../assets/SignIn_Img.png'
 import { useNavigate } from "react-router-dom";
-import SecretPage from "../SecretPage/SecretPage";
+import { useContext } from "react";
+import { UserContext } from "../../ContextAPI/User";
 
 export default function SignIn() {
 
     const navigate = useNavigate();
 
     const URL = "http://localhost:4000/";
+    const UserState = useContext(UserContext)
+
     const [SignInForm, setSignInForm] = useState({
         Email: "",
         Password: "",
@@ -36,9 +39,12 @@ export default function SignIn() {
 
             // token store in local storage
             localStorage.setItem('token', response.data.Token)
-
+            console.log(response.data)
             // go to the SecretPage using navigate method in react router dom 
-            navigate("/SecretPage")
+            
+            console.log(UserState.User);
+            
+            navigate("/")
 
         } catch (err) {
             console.log(err);

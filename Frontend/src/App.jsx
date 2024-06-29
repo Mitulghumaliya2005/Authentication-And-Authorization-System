@@ -1,31 +1,32 @@
-
-import SignIn  from './Componets/SignIn/SignIn';
+import SignIn from './Componets/SignIn/SignIn';
 import SignUp from './Componets/SignUp/SignUp'
 import SecretPage from './Componets/SecretPage/SecretPage'
 import Home from './Componets/Home/Home';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import './App.css'
+import { UserContext } from './ContextAPI/User';
+import { useContext } from 'react';
+
 
 
 function App() {
 
+  const UserState = useContext(UserContext);
+  console.log(UserState);
+
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <><Home /></>,
+      element: (UserState.User) ? <SecretPage /> : <Home />,
     },
     {
       path: '/SignIn',
-      element: <><SignIn/></>,
+      element: (UserState.User) ? <Navigate to={'/'} replace={true}/> : <SignIn />,
     },
     {
       path: '/SignUp',
-      element: <><SignUp /></>,
+      element: (UserState.User) ? <Navigate to={'/'} replace={true}/> : <SignUp />,
     },
-    {
-      path:'/SecretPage',
-      element: <><SecretPage /></>
-    }
   ])
 
   return (

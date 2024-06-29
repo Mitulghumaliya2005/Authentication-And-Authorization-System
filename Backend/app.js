@@ -36,7 +36,11 @@ app.get("/tokenverify", (req, res) => {
     const verified = jwt.verify(req.query.token, "PrivateKey");
     console.log(verified);
     AuthenticationCollection.findOne({ Email: verified.Email }).then((response)=> {
-        console.log(response);
+        console.log("hELLO",response);
+        res.status(200).json({
+            data:response,
+            message:"alrady SingIN"
+        })
     }).catch((err) => {
         console.log("Error");
     })
@@ -53,6 +57,9 @@ app.post("/SignUp", (req, res) => {
         console.log(hash);
         // hashpassword = hash;
         AuthenticationCollection.find().then((response) => {
+            const token = jwt.sign({Email: req.query.Email},"PrivateKey",{expiresIn:"1m"});
+            console.log(token);
+
             const result = new AuthenticationCollection({
                 Email: req.query.Email,
                 Password: hash,
@@ -61,7 +68,8 @@ app.post("/SignUp", (req, res) => {
             console.log(response);
             res.status(200).json({
                 message: "SignUp successfully",
-                data: response
+                data: response,
+                token:token,
             })
         }).catch((err) => {
             console.log(err);
@@ -81,7 +89,7 @@ app.post("/SignIn", (req, res) => {
     AuthenticationCollection.findOne({ Email: req.query.Email }).then((response) => {
         console.log(response);
 
-        const token = jwt.sign({ Email: req.query.Email }, "PrivateKey");
+        const token = jwt.sign({ Email: req.query.Email }, "PrivateKey",{expiresIn:"1m"});
         console.log(token);
 
         if (!response) {
