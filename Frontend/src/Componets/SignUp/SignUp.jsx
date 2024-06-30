@@ -15,7 +15,7 @@ export default function SignUp() {
     const [SignUpForm, setSignUpForm] = useState({
         Email: "",
         Password: "",
-        ConformPassword:"",
+        ConformPassword: "",
     })
 
     function handleSignUpForm(Event) {
@@ -29,33 +29,33 @@ export default function SignUp() {
     async function submitSignUpForm(Event) {
 
         Event.preventDefault();
-        console.log(SignUpForm);
+        // console.log(SignUpForm);
 
-        if(SignUpForm.Password==SignUpForm.ConformPassword){
+        if (SignUpForm.Password == SignUpForm.ConformPassword) {
 
-                try {
-                    console.log("HEllo");
-                    const response = await axios.post(URL + `SignUp?Email=${SignUpForm.Email}&Password=${SignUpForm.Password}`);
-                    console.log(response.data);
-                    alert(response.data.message)
-                    localStorage.setItem('token',response.data.token);
-                    
-                    Navigate("/");
+            try {
+                // console.log("HEllo");
+                const response = await axios.post(URL + `SignUp?Email=${SignUpForm.Email}&Password=${SignUpForm.Password}`);
+                console.log(response.data);
+                alert(response.data.message)
+                localStorage.setItem('token', response.data.token);
 
-                    // return response.data;
-                } catch (err) {
-                    alert(err.response.data.message)
-                    console.log(err);
-                }
-    
-        }else{
+                Navigate("/");
+
+                // return response.data;
+            } catch (err) {
+                alert(err.response.data.message)
+                console.log(err);
+            }
+
+        } else {
             alert("Please Enter the Valid Password")
         }
 
         setSignUpForm({
             Email: "",
             Password: "",
-            ConformPassword:"",
+            ConformPassword: "",
         })
     }
 
@@ -82,22 +82,6 @@ export default function SignUp() {
                     </div>
                     <div className='signup_form_con'>
                         <form>
-                            {/* <div className='signup_D'>
-                                <div className='singup_label'>
-                                    <label htmlFor='name'>Name</label>
-                                </div>
-                                <div>
-                                    <input
-                                        className='singup_input'
-                                        type='text'
-                                        id='name'
-                                        name='Name'
-                                        value={SignupData.Name}
-                                        onChange={handleSignup}
-                                        spellCheck={false}
-                                    />
-                                </div>
-                            </div> */}
                             <div className='signup_D'>
                                 <div className='singup_label'>
                                     <label htmlFor='Email'>Email</label>

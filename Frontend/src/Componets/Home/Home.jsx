@@ -6,10 +6,11 @@ import { UserContext } from "../../ContextAPI/User";
 import axios from "axios";
 
 export default function () {
+
     const URL = "http://localhost:4000/";
     const UserState = useContext(UserContext);
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
         // token read using getitem method
         const localStoragetoken = localStorage.getItem('token');
@@ -19,9 +20,11 @@ export default function () {
             try{
                 const response = await axios.get(URL+`tokenverify?token=${localStoragetoken}`);
                 console.log(response);
+
                 UserState.setUser(response.data.data)
                 console.log(UserState.User);
-                console.log("HEllooooooo");
+                
+                // console.log("HEllooooooo");
             }catch(err){
                 console.log(err);
             }
@@ -32,7 +35,7 @@ export default function () {
         }).catch((err)=>{
             console.log("Erroe");
         })
-    },[UserState.User]);
+    // },[UserState.User]);
 
     return (
         <div>

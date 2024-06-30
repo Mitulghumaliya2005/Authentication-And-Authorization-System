@@ -48,16 +48,18 @@ app.get("/tokenverify", (req, res) => {
 
 
 app.post("/SignUp", (req, res) => {
-    console.log(req.query.Email);
-    console.log(req.query.Password);
+    // console.log(req.query.Email);
+    // console.log(req.query.Password);
+    console.log("SignUp Called");
 
     bcrypt.hash(req.query.Password, saltRounds, function (err, hash) {
 
-        console.log(req.query.Password);
+        // console.log(req.query.Password);
         console.log(hash);
         // hashpassword = hash;
         AuthenticationCollection.find().then((response) => {
-            const token = jwt.sign({Email: req.query.Email},"PrivateKey",{expiresIn:"1m"});
+
+            const token = jwt.sign({Email: req.query.Email},"PrivateKey",{expiresIn:"10m"});
             console.log(token);
 
             const result = new AuthenticationCollection({
@@ -79,6 +81,7 @@ app.post("/SignUp", (req, res) => {
             })
         })
     });
+
 })
 
 app.post("/SignIn", (req, res) => {

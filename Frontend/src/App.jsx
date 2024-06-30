@@ -12,7 +12,7 @@ import { useContext } from 'react';
 function App() {
 
   const UserState = useContext(UserContext);
-  console.log(UserState);
+  console.log(UserState.User);
 
   const router = createBrowserRouter([
     {
