@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
 
+    // const [toggle, settoggle] = useState(true);
+    const [OTP, setOTP] = useState(false);
     const URL = 'http://localhost:4000/';
     const Navigate = useNavigate();
 
@@ -16,7 +18,39 @@ export default function SignUp() {
         Email: "",
         Password: "",
         ConformPassword: "",
+        OTP: "",
     })
+
+
+    // let Display = { display: toggle == true ? "block" : "none" };
+
+    async function getOTP(Event) {
+        Event.preventDefault();
+        try {
+            const response = await axios.get(URL + "getOTP");
+            console.log(response.data);
+            setOTP(response.data.value);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function handlesetOTP(Event) {
+        Event.preventDefault();
+        try {
+            const response = await axios.post(URL + "setOTP");
+            console.log(response.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    // function handledisplay(Event) {
+    //     Event.preventDefault();
+    //     settoggle(!toggle);
+    //     console.log(toggle);
+    // }
+    // console.log(toggle);
 
     function handleSignUpForm(Event) {
         setSignUpForm((curr) => {
@@ -80,6 +114,7 @@ export default function SignUp() {
                     <div>
                         <hr />
                     </div>
+
                     <div className='signup_form_con'>
                         <form>
                             <div className='signup_D'>
@@ -99,38 +134,87 @@ export default function SignUp() {
                                 </div>
                             </div>
 
-                            <div className='signup_D'>
-                                <div className='singup_label'>
-                                    <label htmlFor='Password'>Password</label>
-                                </div>
-                                <div>
-                                    <input
-                                        className='singup_input'
-                                        type='Password'
-                                        id='Password'
-                                        placeholder="Enter Your Password"
-                                        name="Password"
-                                        value={SignUpForm.Password}
-                                        onChange={handleSignUpForm}
-                                    />
-                                </div>
-                            </div>
-                            <div className="signup_D">
-                                <div className="singup_label">
-                                    <label htmlFor="ConformPassword">ConformPassword</label>
-                                </div>
-                                <div>
-                                    <input
-                                        className="singup_input"
-                                        type='Password'
-                                        id='Password'
-                                        placeholder="Re-enter Password"
-                                        name="ConformPassword"
-                                        onChange={handleSignUpForm}
-                                        value={SignUpForm.ConformPassword}
-                                    />
-                                </div>
-                            </div>
+                            {
+                                OTP == false ?
+                                    (<div className='signup_button'>
+                                        <button onClick={getOTP}>GET OTP</button>
+                                    </div>
+                                    ) : null
+                            }
+
+
+                            {
+                                OTP ? (
+
+                                    <div style={Display}>
+                                        <div>
+                                            <label htmlFor="OTP">OTP</label>
+                                        </div>
+                                        <div>
+                                            <input
+                                                className='singup_input'
+                                                type='number'
+                                                id='OTP'
+                                                placeholder="Enter 6 Digit Code"
+                                                name="OTP"
+                                                // value={SignUpForm.OTP}
+                                                onChange={handleSignUpForm}
+                                            />
+                                        </div>
+
+                                        <div className='signup_button'>
+                                            <button onClick={handlesetOTP}>SetOTP</button>
+                                        </div>
+                                    </div>
+
+
+                                ) : (
+                                    null
+                                    // <div style={Display}>
+                                    //     <div className='signup_D'>
+                                    //         <div className='singup_label'>
+                                    //             <label htmlFor='Password'>Password</label>
+                                    //         </div>
+                                    //         <div>
+                                    //             <input
+                                    //                 className='singup_input'
+                                    //                 type='Password'
+                                    //                 id='Password'
+                                    //                 placeholder="Enter Your Password"
+                                    //                 name="Password"
+                                    //                 value={SignUpForm.Password}
+                                    //                 onChange={handleSignUpForm}
+                                    //             />
+                                    //         </div>
+                                    //     </div>
+
+                                    //     <div className="signup_D">
+                                    //         <div className="singup_label">
+                                    //             <label htmlFor="ConformPassword">ConformPassword</label>
+                                    //         </div>
+                                    //         <div>
+                                    //             <input
+                                    //                 className="singup_input"
+                                    //                 type='Password'
+                                    //                 id='Password'
+                                    //                 placeholder="Re-enter Password"
+                                    //                 name="ConformPassword"
+                                    //                 onChange={handleSignUpForm}
+                                    //                 value={SignUpForm.ConformPassword}
+                                    //             />
+                                    //         </div>
+                                    //     </div>
+
+                                    //     <div className='signup_button'>
+                                    //         <button onClick={handledisplay}>SignUp With OTP</button>
+                                    //     </div>
+
+                                    // </div>
+                                )
+                            }
+
+
+
                         </form>
                     </div>
                     <div>
@@ -147,9 +231,11 @@ export default function SignUp() {
                             <p> I agree with <a href='#'>Terms</a> and <a href='#'>Privacy</a> </p>
                         </div>
                     </div>
+
                     <div className='signup_button'>
                         <button onClick={submitSignUpForm}>SignUp</button>
                     </div>
+
                     <div>
                         <hr />
                     </div>

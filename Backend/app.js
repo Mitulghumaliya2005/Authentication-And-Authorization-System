@@ -46,6 +46,17 @@ app.get("/tokenverify", (req, res) => {
     })
 })
 
+app.get("/getOTP",(req,res)=>{
+    res.json({
+        value:true,
+    })
+})
+
+app.post("/setOTP",(req,res)=>{
+    res.json({
+        message:"SetOTP",
+    })
+})
 
 app.post("/SignUp", (req, res) => {
     // console.log(req.query.Email);
@@ -86,13 +97,13 @@ app.post("/SignUp", (req, res) => {
 
 app.post("/SignIn", (req, res) => {
     console.log("SignIN Called");
-    console.log(req.query.Email);
-    console.log(req.query.Password);
+    // console.log(req.query.Email);
+    // console.log(req.query.Password);
 
     AuthenticationCollection.findOne({ Email: req.query.Email }).then((response) => {
-        console.log(response);
 
-        const token = jwt.sign({ Email: req.query.Email }, "PrivateKey",{expiresIn:"1m"});
+        console.log(response);
+        const token = jwt.sign({ Email: req.query.Email }, "PrivateKey",{expiresIn:"10m"});
         console.log(token);
 
         if (!response) {
