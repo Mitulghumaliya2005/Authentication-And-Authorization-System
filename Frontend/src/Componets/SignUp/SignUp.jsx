@@ -135,82 +135,80 @@ export default function SignUp() {
                             </div>
 
                             {
-                                OTP == false ?
-                                    (<div className='signup_button'>
-                                        <button onClick={getOTP}>GET OTP</button>
-                                    </div>
-                                    ) : null
+                                !OTP &&
+                                <div className='signup_button'>
+                                    <button onClick={getOTP}>GET OTP</button>
+                                </div>
                             }
 
 
                             {
-                                OTP ? (
+                                OTP &&
 
-                                    <div style={Display}>
-                                        <div>
-                                            <label htmlFor="OTP">OTP</label>
-                                        </div>
-                                        <div>
-                                            <input
-                                                className='singup_input'
-                                                type='number'
-                                                id='OTP'
-                                                placeholder="Enter 6 Digit Code"
-                                                name="OTP"
-                                                // value={SignUpForm.OTP}
-                                                onChange={handleSignUpForm}
-                                            />
-                                        </div>
-
-                                        <div className='signup_button'>
-                                            <button onClick={handlesetOTP}>SetOTP</button>
-                                        </div>
+                                <div>
+                                    <div>
+                                        <label htmlFor="OTP">OTP</label>
+                                    </div>
+                                    <div>
+                                        <input
+                                            className='singup_input'
+                                            type='number'
+                                            id='OTP'
+                                            placeholder="Enter 6 Digit Code"
+                                            name="OTP"
+                                            // value={SignUpForm.OTP}
+                                            onChange={handleSignUpForm}
+                                        />
                                     </div>
 
+                                    <div className='signup_button'>
+                                        <button onClick={handlesetOTP}>Verify OTP</button>
+                                    </div>
+                                </div>
 
-                                ) : (
-                                    null
-                                    // <div style={Display}>
-                                    //     <div className='signup_D'>
-                                    //         <div className='singup_label'>
-                                    //             <label htmlFor='Password'>Password</label>
-                                    //         </div>
-                                    //         <div>
-                                    //             <input
-                                    //                 className='singup_input'
-                                    //                 type='Password'
-                                    //                 id='Password'
-                                    //                 placeholder="Enter Your Password"
-                                    //                 name="Password"
-                                    //                 value={SignUpForm.Password}
-                                    //                 onChange={handleSignUpForm}
-                                    //             />
-                                    //         </div>
-                                    //     </div>
 
-                                    //     <div className="signup_D">
-                                    //         <div className="singup_label">
-                                    //             <label htmlFor="ConformPassword">ConformPassword</label>
-                                    //         </div>
-                                    //         <div>
-                                    //             <input
-                                    //                 className="singup_input"
-                                    //                 type='Password'
-                                    //                 id='Password'
-                                    //                 placeholder="Re-enter Password"
-                                    //                 name="ConformPassword"
-                                    //                 onChange={handleSignUpForm}
-                                    //                 value={SignUpForm.ConformPassword}
-                                    //             />
-                                    //         </div>
-                                    //     </div>
 
-                                    //     <div className='signup_button'>
-                                    //         <button onClick={handledisplay}>SignUp With OTP</button>
-                                    //     </div>
+                                // <div style={Display}>
+                                //     <div className='signup_D'>
+                                //         <div className='singup_label'>
+                                //             <label htmlFor='Password'>Password</label>
+                                //         </div>
+                                //         <div>
+                                //             <input
+                                //                 className='singup_input'
+                                //                 type='Password'
+                                //                 id='Password'
+                                //                 placeholder="Enter Your Password"
+                                //                 name="Password"
+                                //                 value={SignUpForm.Password}
+                                //                 onChange={handleSignUpForm}
+                                //             />
+                                //         </div>
+                                //     </div>
 
-                                    // </div>
-                                )
+                                //     <div className="signup_D">
+                                //         <div className="singup_label">
+                                //             <label htmlFor="ConformPassword">ConformPassword</label>
+                                //         </div>
+                                //         <div>
+                                //             <input
+                                //                 className="singup_input"
+                                //                 type='Password'
+                                //                 id='Password'
+                                //                 placeholder="Re-enter Password"
+                                //                 name="ConformPassword"
+                                //                 onChange={handleSignUpForm}
+                                //                 value={SignUpForm.ConformPassword}
+                                //             />
+                                //         </div>
+                                //     </div>
+
+                                //     <div className='signup_button'>
+                                //         <button onClick={handledisplay}>SignUp With OTP</button>
+                                //     </div>
+
+                                // </div>
+
                             }
 
 

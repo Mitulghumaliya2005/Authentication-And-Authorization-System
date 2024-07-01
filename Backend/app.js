@@ -1,14 +1,37 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
+import express from "express"
+import cors from "cors"
+import mongoose from "mongoose";
+import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 const app = express();
 const saltRounds = 10;
 const port = 4000;
-
-
 app.use(cors());
+
+
+
+//Importing Routes
+import EmailRouter from "./Routes/Email/OTP.js";
+import TokenVerifyRouter from "./Routes/TokenVerify/TokenVerify.js";
+import SignInrouter from "./Routes/SignIn/SignIn.js";
+import SignUprouter from "./Routes/SignUp/SignUp.js";
+
+
+
+
+
+
+
+
+
+// Using Routes
+
+app.use(EmailRouter);
+app.use(TokenVerifyRouter);
+app.use(SignInrouter);
+app.use(SignUprouter);
+
+
 
 main().then(() => {
     console.log("Connection succesefully");
@@ -26,120 +49,9 @@ const AuthenticationSchema = mongoose.Schema({
 })
 
 const AuthenticationCollection = new mongoose.model('AuthenticationCollection', AuthenticationSchema);
-
-app.get("/", (req, res) => {
-    res.json("HEllo")
-})
-
-app.get("/tokenverify", (req, res) => {
-    console.log(req.query.token);
-    const verified = jwt.verify(req.query.token, "PrivateKey");
-    console.log(verified);
-    AuthenticationCollection.findOne({ Email: verified.Email }).then((response)=> {
-        console.log("hELLO",response);
-        res.status(200).json({
-            data:response,
-            message:"alrady SingIN"
-        })
-    }).catch((err) => {
-        console.log("Error");
-    })
-})
-
-app.get("/getOTP",(req,res)=>{
-    res.json({
-        value:true,
-    })
-})
-
-app.post("/setOTP",(req,res)=>{
-    res.json({
-        message:"SetOTP",
-    })
-})
-
-app.post("/SignUp", (req, res) => {
-    // console.log(req.query.Email);
-    // console.log(req.query.Password);
-    console.log("SignUp Called");
-
-    bcrypt.hash(req.query.Password, saltRounds, function (err, hash) {
-
-        // console.log(req.query.Password);
-        console.log(hash);
-        // hashpassword = hash;
-        AuthenticationCollection.find().then((response) => {
-
-            const token = jwt.sign({Email: req.query.Email},"PrivateKey",{expiresIn:"10m"});
-            console.log(token);
-
-            const result = new AuthenticationCollection({
-                Email: req.query.Email,
-                Password: hash,
-            })
-            result.save();
-            console.log(response);
-            res.status(200).json({
-                message: "SignUp successfully",
-                data: response,
-                token:token,
-            })
-        }).catch((err) => {
-            console.log(err);
-            res.status(404).json({
-                message: "SignUp Error",
-                data: err,
-            })
-        })
-    });
-
-})
-
-app.post("/SignIn", (req, res) => {
-    console.log("SignIN Called");
-    // console.log(req.query.Email);
-    // console.log(req.query.Password);
-
-    AuthenticationCollection.findOne({ Email: req.query.Email }).then((response) => {
-
-        console.log(response);
-        const token = jwt.sign({ Email: req.query.Email }, "PrivateKey",{expiresIn:"10m"});
-        console.log(token);
-
-        if (!response) {
-            res.status(404).json({
-                message: "Email Error",
-                data: response,
-            })
-        } else {
-            bcrypt.compare(req.query.Password, response.Password, function (err, result) {
-                // console.log(result);
-
-                if (response.Email == req.query.Email && result == true) {
-                    res.status(200).json({
-                        message: "SignIn Scussefully",
-                        Token: token,
-                        Email: req.query.Email,
-                    })
-                }
-
-                else if (result == false) {
-                    // res.json("This User Are Not Exiest")
-                    res.status(404).json({
-                        message: "Password Error",
-                        data: response,
-                    })
-                }
-            })
-        }
-    }).catch((err) => {
-        console.log(err);
-        console.log("THis user is not ");
-    })
-})
-
+export { AuthenticationCollection }
 
 
 app.listen(port, () => {
     console.log("app listening on port 4000");
-})
+}) 
