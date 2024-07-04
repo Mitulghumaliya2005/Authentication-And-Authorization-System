@@ -10,7 +10,7 @@ const SignIn = (req, res) => {
     AuthenticationCollection.findOne({ Email: req.query.Email }).then((response) => {
 
         console.log(response);
-        const token = jwt.sign({ Email: req.query.Email }, "PrivateKey", { expiresIn: "10m" });
+        const token = jwt.sign({ Email: req.query.Email }, "PrivateKey", { expiresIn: "1m" });
         console.log(token);
 
         if (!response) {

@@ -2,48 +2,39 @@ import { AuthenticationCollection } from "../../app.js";
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 
+const saltRounds = 10;
+
 const SignUp = (req, res) => {
-    console.log("SignIN Called");
     // console.log(req.query.Email);
     // console.log(req.query.Password);
-
-    AuthenticationCollection.findOne({ Email: req.query.Email }).then((response) => {
-
-        console.log(response);
-        const token = jwt.sign({ Email: req.query.Email }, "PrivateKey", { expiresIn: "10m" });
-        console.log(token);
-
-        if (!response) {
-            res.status(404).json({
-                message: "Email Error",
+    console.log("SignUp Called");
+    bcrypt.hash(req.query.Password, saltRounds, function (err, hash) {
+        // console.log(req.query.Password);
+        console.log(hash);
+        // hashpassword = hash;
+        
+        AuthenticationCollection.find().then((response) => {
+            const token = jwt.sign({Email: req.query.Email},"PrivateKey",{expiresIn:"1m"});
+            console.log(token);
+            const result = new AuthenticationCollection({
+                Email: req.query.Email,
+                Password: hash,
+            })
+            result.save();
+            console.log(response);
+            res.status(200).json({
+                message: "SignUp successfully",
                 data: response,
+                token:token,
             })
-        } else {
-            bcrypt.compare(req.query.Password, response.Password, function (err, result) {
-                // console.log(result);
-
-                if (response.Email == req.query.Email && result == true) {
-                    res.status(200).json({
-                        message: "SignIn Scussefully",
-                        Token: token,
-                        Email: req.query.Email,
-                    })
-                }
-
-                else if (result == false) {
-                    // res.json("This User Are Not Exiest")
-                    res.status(404).json({
-                        message: "Password Error",
-                        data: response,
-                    })
-                }
+        }).catch((err) => {
+            console.log(err);
+            res.status(404).json({
+                message: "SignUp Error",
+                data: err,
             })
-        }
-
-    }).catch((err) => {
-        console.log(err);
-        console.log("THis user is not ");
-    })
+        })
+    });
 }
 
 export { SignUp }

@@ -48,9 +48,16 @@ const AuthenticationSchema = mongoose.Schema({
     Password: String,
 })
 
+const OtpGeneratorSchema = mongoose.Schema({
+    Email: String,
+    otp: String,
+})
+
 const AuthenticationCollection = new mongoose.model('AuthenticationCollection', AuthenticationSchema);
 export { AuthenticationCollection }
 
+const OtpGeneratorCollection = new mongoose.model('OtpGeneratorCollection',OtpGeneratorSchema);
+export { OtpGeneratorCollection}
 
 app.listen(port, () => {
     console.log("app listening on port 4000");
